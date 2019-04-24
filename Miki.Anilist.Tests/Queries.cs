@@ -10,7 +10,7 @@ namespace Miki.Anilist.Tests
 		public async Task GetCharacter()
 		{
 			AnilistClient client = new AnilistClient();
-			var ch = await client.GetCharacterAsync("miki");
+			var ch = await client.GetCharacterAsync("rem");
 
 			Assert.NotNull(ch);
 
@@ -19,7 +19,20 @@ namespace Miki.Anilist.Tests
 			Assert.NotNull(ch);
 		}
 
-		[Fact]
+        [Fact]
+        public async Task GetStaff()
+        {
+            AnilistClient client = new AnilistClient();
+            var ch = await client.GetStaffAsync("Shinichi Fukuda");
+
+            Assert.NotNull(ch);
+
+            ch = await client.GetStaffAsync(105350);
+
+            Assert.NotNull(ch);
+        }
+
+        [Fact]
 		public async Task FindCharacters()
 		{
 			AnilistClient client = new AnilistClient();

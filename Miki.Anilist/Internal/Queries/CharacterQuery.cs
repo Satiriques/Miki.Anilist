@@ -9,6 +9,12 @@ namespace Miki.Anilist.Internal.Queries
 		internal AnilistCharacter Character;
 	}
 
+    internal class StaffQuery
+    {
+        [JsonProperty("Staff")]
+        internal AnilistCharacter Staff;
+    }
+
 	internal class MediaQuery
 	{
 		[GraphQLField("media")]

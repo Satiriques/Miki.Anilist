@@ -52,21 +52,28 @@ namespace Miki.Anilist
 		/// <returns>The first character or null if nothing found.</returns>
 		public async Task<ICharacter> GetCharacterAsync(string name)
 			=> (await graph.QueryAsync<CharacterQuery>("query($p0: String){ Character(search: $p0){ name{ first last native } description siteUrl id image{ large } } }", name))?.Character ?? null;
-		/// <summary>
-		/// Asynchronously gets the character paired to the id
-		/// </summary>
-		/// <param name="id">character id</param>
-		/// <returns>character</returns>
-		public async Task<ICharacter> GetCharacterAsync(long id)
+
+        /// <summary>
+        /// Asynchronously gets the character paired to the id
+        /// </summary>
+        /// <param name="id">character id</param>
+        /// <returns>character</returns>
+        public async Task<ICharacter> GetCharacterAsync(long id)
 			=> (await graph.QueryAsync<CharacterQuery>("query($p0: Int){ Character(id: $p0){ name{ first last native } description siteUrl id image{ large } } }", id))?.Character ?? null;
 
-		/// <summary>
-		/// Searches a character and returns the id and full name of a character
-		/// </summary>
-		/// <param name="name">name to search for</param>
-		/// <param name="page">current page</param>
-		/// <returns></returns>
-		public async Task<ISearchResult<ICharacterSearchResult>> SearchCharactersAsync(string name, int page = 0)
+        public async Task<ICharacter> GetStaffAsync(string name)
+            => (await graph.QueryAsync<StaffQuery>("query($p0: String){ Staff(search: $p0){ name{ first last native } description siteUrl id image{ large } } }", name))?.Staff ?? null;
+
+        public async Task<ICharacter> GetStaffAsync(long id)
+            => (await graph.QueryAsync<StaffQuery>("query($p0: Int){ Staff(id: $p0){ name{ first last native } description siteUrl id image{ large } } }", id))?.Staff ?? null;
+
+        /// <summary>
+        /// Searches a character and returns the id and full name of a character
+        /// </summary>
+        /// <param name="name">name to search for</param>
+        /// <param name="page">current page</param>
+        /// <returns></returns>
+        public async Task<ISearchResult<ICharacterSearchResult>> SearchCharactersAsync(string name, int page = 0)
 		{
 			string query = "query($p0: Int, $p1: String){ Page(page: $p0, perPage: 25) { pageInfo{ total currentPage perPage } characters(search: $p1) { id name{first last} } } }";
 
